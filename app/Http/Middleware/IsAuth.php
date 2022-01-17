@@ -24,10 +24,19 @@ class IsAuth
         $id = User::select('id')->where('api_token', '=', $request->header('X-Token-Secure') )->first();
         
         if ( $id ) {
+            User::where('api_token', '=', $request->header('X-Token-Secure') )
+            ->update(
+                [
+                    'expire_api_token' => time() + config("constants.EXPIRE_API_TOKEN_IN_SECOND")
+                ]);
             $request->merge(['account_id' => $id->toArray()['id']]);
             return $next($request);
         }
         
         return response('error parameters', 404);
+        return response()->json([
+            'success'=> false,
+            'key'=> 'unvalid-token'
+        ]);
     }
 }

@@ -39,6 +39,9 @@ class ApiController extends Controller
         }
         
         $api_token = generateApiKey();
+        while(User::where('api_token', '=', $api_token )->first()) {
+            $api_token = generateApiKey();
+        }
         
         $v = new User();
         $v->where('email', '=', $request->get('email'))
