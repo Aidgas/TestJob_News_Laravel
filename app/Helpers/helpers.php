@@ -4,13 +4,14 @@ function makePasswordMd5($password) {
     return md5('@#!@EDSFVTR' . $password. '457^*(!@');
 }
 
-function generateApiKey($length=80, $list="0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ") {
-    mt_srand((double)microtime()*1000000);
-    $newstring="";
+function generateApiKey($length = 80, $list = "_0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz%^$#@!&*+-=._;:~()[]{}?<>") {
+    mt_srand((double)microtime() * 1000000);
+    $newstring = '';
+    $len_list = strlen($list);
 
     if($length > 0){
         while(strlen($newstring) < $length){
-            $newstring .= $list[ mt_rand(0, strlen( $list) - 1 ) ];
+            $newstring .= $list[ mt_rand(0, $len_list - 1 ) ];
         }
     }
     return $newstring; 

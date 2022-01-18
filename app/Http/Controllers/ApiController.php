@@ -38,9 +38,9 @@ class ApiController extends Controller
             ]);
         }
         
-        $api_token = generateApiKey();
+        $api_token = generateApiKey(60);
         while(User::where('api_token', '=', $api_token )->first()) {
-            $api_token = generateApiKey();
+            $api_token = generateApiKey(60);
         }
         
         $v = new User();
@@ -85,7 +85,7 @@ class ApiController extends Controller
             ]);
         }
         
-        $api_token = generateApiKey();
+        $api_token = generateApiKey(60);
         
         $v = new User();
         $v->email             = $request->get('email');
